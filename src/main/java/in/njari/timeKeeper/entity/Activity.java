@@ -1,5 +1,6 @@
 package in.njari.timeKeeper.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,10 +12,14 @@ public class Activity {
 		RESTING, PHYSICAL, MENTAL, OTHER;
 
 	}
+
 	@Id
 	@GeneratedValue
+	@Column(name = "id")
 	private long id;
+	@Column(name = "name")
 	private String name;
+	@Column(name = "activity_type")
 	private ActivityType activityType;
 
 	public ActivityType getType() {
