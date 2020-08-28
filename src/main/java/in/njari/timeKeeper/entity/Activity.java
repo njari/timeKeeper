@@ -3,47 +3,40 @@ package in.njari.timeKeeper.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Activity {
-
-	public enum ActivityType {
-		RESTING, PHYSICAL, MENTAL, OTHER;
-
-	}
-
+	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private long id;
-	@Column(name = "name")
-	private String name;
-	@Column(name = "activity_type")
-	private ActivityType activityType;
-
-	public ActivityType getType() {
-		return activityType;
+	
+	@ManyToOne
+	private Action action ; 
+	@Column(name = "duration")
+	private int duration ;
+	
+	public Activity() {
+		
 	}
-
-	public void setType(ActivityType type) {
-		this.activityType = type;
+	
+	public Activity(Action action , int duration) {
+		this.action = action ;
+		this.duration = duration;
 	}
-
-	public String getName() {
-		return name;
+	
+	public int getDuration() {
+		return this.duration;
 	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	Activity() {
-	}
-
-	public Activity(ActivityType activityType, String name) {
-		this.name = name;
-		this.activityType = activityType;
+	
+	@Override
+	public String toString() {
+		return action.getName() + " for " + duration +" seconds.";
+		
 	}
 
 }
